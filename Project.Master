@@ -1,0 +1,96 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Project.master.cs" Inherits="Work01.Project" %>
+
+<%@ Register Src="~/LogBtnUserControl.ascx" TagPrefix="uc1" TagName="LogBtnUserControl" %>
+
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="Width=width-device" />
+    <title><%# Page.Title %></title>
+    <link href="Content/bootstrap.css" rel="stylesheet" />
+    <script src="Scripts/jquery-3.6.0.js"></script>
+    <link href="Content/font-awesome.css" rel="stylesheet" />
+    <script src="Scripts/bootstrap-datepicker.js"></script>
+
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <style>
+        body{
+            padding-top:70px;
+        }
+    </style>
+</head>
+<body>
+    <form id="form1" runat="server">
+     <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+     <nav class="navbar navbar-light navbar-expand-md  shadow fixed-top " style="background-color:#ff7d00; font-size:20px;">
+        <span class="navbar-brand text-light">HMS</span>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+             <span class="navbar-toggler-icon"></span>
+             </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+           <ul class="navbar-nav mr-auto">
+               <li class="nav-item  ">
+                   <a class="nav-link active" href="Default.aspx">Home</a>
+               </li>
+                 <li class="nav-item">
+                        <a class="nav-link" href="CategoryInObjectSource.aspx">Categories</a>
+                 </li>
+                 <li class="nav-item">
+                    <a class="nav-link" href="Rooms.aspx">Rooms</a>
+                </li>
+              
+                 <li class="nav-item">
+                      <a class="nav-link " href="InsertRoomBooking.aspx">Booking</a>
+                 </li>
+               <li class="nav-item">
+                      <a class="nav-link " href="Report.aspx">Total Reports</a>
+                 </li>
+              </ul>
+            
+          <ul class="nav navbar-nav ml-auto">
+                    <%
+                        if (Request.IsAuthenticated)
+                        {
+                    %>
+                        <li class="navbar-text">Hi <%= Page.User.Identity.Name %></li>
+                        <li class="nav-item">
+                            <asp:LinkButton ID="signOut" CssClass="nav-link" OnClick="signOut_Click" runat="server">Log Out</asp:LinkButton>
+                        </li>
+                    <%
+                        }
+                        else
+                        { 
+                    %>
+                        <li class="nav-item"><a class="nav-link" href="register.aspx">Sign Up</a></li>
+                    <li class="nav-item"><a class="nav-link" href="Login.aspx">Login</a></li>
+                    <%
+
+                        }
+                    %>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="container-fluid">
+            <asp:ContentPlaceHolder ID="body" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+        <footer class="container-fluid">
+            <p class="text-center">&copy; <%:DateTime.Now.Year %> - www.isdb-bisew.org</p>
+        </footer>
+      <%--<footer class="container">
+            <p class="text-center">&copy; www.isdb-bisew.org</p>
+            <p>This site has been visited <%:Application["totalHit"] %> times, Currently visiting <%:Application["currentlyVisiting"] %></p>
+        </footer>--%>
+    </form>
+    <asp:ContentPlaceHolder ID="foot" runat="server">
+
+    </asp:ContentPlaceHolder>
+    <script src="Scripts/bootstrap.js"></script>
+</body>
+</html>
